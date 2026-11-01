@@ -1,0 +1,76 @@
+{
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "seed": 42,
+    "num_train_epochs": 20,
+    "warmup_steps": 6,
+    "lr": 0.0002,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "max_seq_len": 512,
+    "max_new_tokens": 96,
+    "gen": {
+      "do_sample": false
+    }
+  },
+  "versions": {
+    "transformers": "5.18.0",
+    "peft": "0.21.1",
+    "trl": "1.14.2",
+    "torch": "2.11.0+cu130"
+  },
+  "method": "LoRA（量子化なし）",
+  "before": {
+    "label": "before",
+    "n": 21,
+    "format_rate": 0.14285714285714285,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "seconds": 18.5
+  },
+  "after": {
+    "label": "after",
+    "n": 21,
+    "format_rate": 1.0,
+    "content_rate": 0.9047619047619048,
+    "both_rate": 0.9047619047619048,
+    "seconds": 33.8
+  },
+  "regressed": [],
+  "knowledge": [
+    {
+      "質問": "外国語で相談できますか？",
+      "FAQ にある": false,
+      "学習前の分類": "asserted",
+      "学習前の出力": "{\"answer\": \"否\", \"needs_review\": false}",
+      "学習後の分類": "needs_review",
+      "学習後の出力": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}"
+    },
+    {
+      "質問": "相談窓口の電話番号は何番ですか？",
+      "FAQ にある": false,
+      "学習前の分類": "format_error",
+      "学習前の出力": "{\"answer\": \"確認が必要\"}",
+      "学習後の分類": "needs_review",
+      "学習後の出力": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}"
+    },
+    {
+      "質問": "送信後に相談を取り消せますか？",
+      "FAQ にある": false,
+      "学習前の分類": "format_error",
+      "学習前の出力": "{\"answer\": \"確認が必要\"}",
+      "学習後の分類": "needs_review",
+      "学習後の出力": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}"
+    },
+    {
+      "質問": "返答が届く目安を教えてください",
+      "FAQ にある": true,
+      "学習前の分類": "format_error",
+      "学習前の出力": "{\"answer\": \"3営業日以内\"}",
+      "学習後の分類": "asserted",
+      "学習後の出力": "{\"answer\": \"回答の目安は受付後3営業日以内です。\", \"needs_review\": false}"
+    }
+  ],
+  "executed_training_myself": true
+}
