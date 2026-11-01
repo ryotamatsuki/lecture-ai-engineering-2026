@@ -1,0 +1,201 @@
+{
+  "summary": {
+    "label": "after",
+    "n": 21,
+    "format_rate": 1.0,
+    "content_rate": 0.9047619047619048,
+    "both_rate": 0.9047619047619048,
+    "seconds": 33.8
+  },
+  "rows": [
+    {
+      "question": "利用時間を教えてください",
+      "raw": "{\"answer\": \"窓口は平日9:00〜17:00に利用できます。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "受付の開始時刻と終了時刻は？",
+      "raw": "{\"answer\": \"窓口は平日9:00〜17:00に利用できます。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "利用可能な曜日と開始時刻を教えてください",
+      "raw": "{\"answer\": \"窓口は平日9:00〜17:00に利用できます。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "オンラインでの提出先は？",
+      "raw": "{\"answer\": \"相談の受付先は専用Webフォームです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "相談を登録する場所は？",
+      "raw": "{\"answer\": \"相談の受付先は専用Webフォームです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "受付はどのWebフォームで行いますか？",
+      "raw": "{\"answer\": \"相談の受付先は専用Webフォームです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "必ず書く項目を教えてください",
+      "raw": "{\"answer\": \"必須入力項目は氏名と相談内容です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "必要な入力欄をすべて教えて",
+      "raw": "{\"answer\": \"必須入力項目は氏名と相談内容です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "氏名と何を入力しますか？",
+      "raw": "{\"answer\": \"必須入力項目は氏名と相談内容です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "対応までの目安は？",
+      "raw": "{\"answer\": \"回答の目安は受付後3営業日以内です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "相談後の回答は何営業日以内ですか？",
+      "raw": "{\"answer\": \"回答の目安は受付後3営業日以内です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "返答が届く目安を教えてください",
+      "raw": "{\"answer\": \"回答の目安は受付後3営業日以内です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "添付の容量制限は？",
+      "raw": "{\"answer\": \"添付資料はPDF 1ファイル、上限5MBです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "添付可能な形式と容量は？",
+      "raw": "{\"answer\": \"添付資料はPDF 1ファイル、上限5MBです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "PDF資料は何MBまで送れますか？",
+      "raw": "{\"answer\": \"添付資料はPDF 1ファイル、上限5MBです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": false
+    },
+    {
+      "question": "匿名でも利用できますか？",
+      "raw": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": true
+    },
+    {
+      "question": "回答に不服がある場合はどうしますか？",
+      "raw": "{\"answer\": \"回答の目安は受付後3営業日以内です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "代理人でも相談できますか？",
+      "raw": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": true
+    },
+    {
+      "question": "相談のキャンセル方法は？",
+      "raw": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": true
+    },
+    {
+      "question": "回答は郵送してもらえますか？",
+      "raw": "{\"answer\": \"回答の目安は受付後3営業日以内です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": false,
+      "both_ok": false,
+      "gold_needs_review": true
+    },
+    {
+      "question": "休日の緊急連絡先はありますか？",
+      "raw": "{\"answer\": \"このFAQには記載がありません。窓口担当者への確認が必要です。\", \"needs_review\": true}",
+      "format_ok": true,
+      "format_reason": "",
+      "content_ok": true,
+      "both_ok": true,
+      "gold_needs_review": true
+    }
+  ]
+}
