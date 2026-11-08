@@ -8,6 +8,7 @@ import json
 from datetime import datetime, timezone
 from functools import cache
 from pathlib import Path
+from random import choice
 from uuid import uuid4
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
@@ -97,3 +98,23 @@ def save_learning_log(topic: str, content: str) -> str:
         json.dump(record, f, ensure_ascii=False, indent=2)
         f.write("\n")
     return f"学習記録を保存しました: {path}"
+
+
+def make_quiz(lecture: int) -> str:
+    """指定した回の用語集から、用語の意味を問う復習問題を1問返す。
+
+    「第2回から確認問題を出して」など、確認問題・クイズを求められたときに使う。
+    lecture は1始まりの講義回（例: 2）。question と answer を含む JSON を返す。
+    用語がない回では空の question・answer と案内 message を返す。
+    """
+    terms = [entry for entry in load_glossary() if entry["lecture"] == lecture]
+    if not terms:
+        return json.dumps(
+            {"question": "", "answer": "", "message": f"第{lecture}回の用語はまだありません。"},
+            ensure_ascii=False,
+        )
+    entry = choice(terms)
+    return json.dumps(
+        {"question": f"「{entry['term']}」とは何ですか？", "answer": entry["definition"]},
+        ensure_ascii=False,
+    )
