@@ -16,7 +16,7 @@ import inspect
 import json
 from pathlib import Path
 
-from pydantic_ai import Agent
+from pydantic_ai import Agent, DeferredToolRequests, DeferredToolResults
 from pydantic_ai.exceptions import ModelHTTPError
 from fastmcp import Client
 from pydantic_ai.mcp import MCPToolset, StdioTransport
@@ -35,12 +35,15 @@ INSTRUCTIONS = """\
 - 用語集に見つからないことは、推測で断定せず「用語集にはない」と伝える。
 - 回答の最後に、関係する回（第N回）を示す。
 - 宿題の答えそのものは書かず、考え方のヒントで導く。
+- 学習内容の記録・保存を依頼されたら save_learning_log を使う。
+- 保存は利用者の承認後にだけ行われる。拒否された保存を再試行せず、保存したと伝えない。
 """
 
 # モデルは実行時に渡す（テストではAPIを呼ばない TestModel に差し替えるため）
-agent = Agent(instructions=INSTRUCTIONS)
+agent = Agent(instructions=INSTRUCTIONS, output_type=[str, DeferredToolRequests])
 agent.tool_plain(tools.search_glossary)
 agent.tool_plain(tools.get_lecture_summary)
+agent.tool_plain(tools.save_learning_log, requires_approval=True)
 
 # TODO(第3回 演習): tools.py に make_quiz を作り、ここで登録しよう
 
@@ -109,6 +112,28 @@ def print_trace(result) -> None:
     print(f"[usage] {result.usage}")
 
 
+def resolve_approvals(target: Agent, result, model):
+    """保存内容を表示して承認を集め、同じ会話履歴でエージェントを再開する。"""
+    while isinstance(result.output, DeferredToolRequests):
+        approvals = {}
+        for call in result.output.approvals:
+            print(f"\n[承認待ち] {call.tool_name}")
+            print(json.dumps(call.args_as_dict(), ensure_ascii=False, indent=2))
+            try:
+                approved = input("この内容を保存しますか？ [y/N]: ").strip().casefold() == "y"
+            except (EOFError, KeyboardInterrupt):
+                approved = False
+                print()
+            approvals[call.tool_call_id] = approved
+            print("[承認] 保存を実行します。" if approved else "[拒否] この保存は実行しません。")
+        result = target.run_sync(
+            model=model,
+            message_history=result.all_messages(),
+            deferred_tool_results=DeferredToolResults(approvals=approvals),
+        )
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="学習支援エージェントに質問する")
     parser.add_argument("question", nargs="?")
@@ -128,7 +153,9 @@ def main() -> None:
     if args.mcp:
         print("[tools] MCP サーバー（app/mcp_servers.json）")
     try:
-        result = target.run_sync(args.question, model=build_model())
+        model = build_model()
+        result = target.run_sync(args.question, model=model)
+        result = resolve_approvals(target, result, model)
     except ModelHTTPError as e:
         print(api_error_message(e.status_code, str(e.body)[:200]))
         raise SystemExit(1)
