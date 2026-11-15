@@ -5,10 +5,14 @@
 """
 
 import json
+from datetime import datetime, timezone
 from functools import cache
 from pathlib import Path
+from random import choice
+from uuid import uuid4
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+LEARNING_LOG_DIR = Path(__file__).resolve().parent.parent / "learning_log"
 MAX_RESULTS = 3
 
 
@@ -77,3 +81,40 @@ def get_lecture_summary(lecture: int) -> str:
         available = sorted(p.stem for p in (DATA_DIR / "lectures").glob("*.md"))
         return f"第{lecture}回の要点はまだありません。用意されている回: {', '.join(available)}"
     return path.read_text(encoding="utf-8")
+
+
+def save_learning_log(topic: str, content: str) -> str:
+    """利用者が学習内容の記録を依頼したとき、題名と内容を learning_log/ に保存する。
+
+    topic は学習テーマ、content は記録する学習内容。保存前に利用者の承認が必要。
+    単なる質問への回答では使わず、記録・保存を依頼されたときだけ使う。
+    保存先とファイル名はプログラム側で決め、既存の記録は上書きしない。
+    """
+    now = datetime.now(timezone.utc)
+    path = LEARNING_LOG_DIR / f"{now:%Y%m%dT%H%M%S%fZ}_{uuid4().hex}.json"
+    record = {"created_at": now.isoformat(), "topic": topic, "content": content}
+    LEARNING_LOG_DIR.mkdir(parents=True, exist_ok=True)
+    with path.open("x", encoding="utf-8") as f:
+        json.dump(record, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    return f"学習記録を保存しました: {path}"
+
+
+def make_quiz(lecture: int) -> str:
+    """指定した回の用語集から、用語の意味を問う復習問題を1問返す。
+
+    「第2回から確認問題を出して」など、確認問題・クイズを求められたときに使う。
+    lecture は1始まりの講義回（例: 2）。question と answer を含む JSON を返す。
+    用語がない回では空の question・answer と案内 message を返す。
+    """
+    terms = [entry for entry in load_glossary() if entry["lecture"] == lecture]
+    if not terms:
+        return json.dumps(
+            {"question": "", "answer": "", "message": f"第{lecture}回の用語はまだありません。"},
+            ensure_ascii=False,
+        )
+    entry = choice(terms)
+    return json.dumps(
+        {"question": f"「{entry['term']}」とは何ですか？", "answer": entry["definition"]},
+        ensure_ascii=False,
+    )
